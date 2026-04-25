@@ -1,0 +1,177 @@
+/* ============================================
+   Navbar.css
+   ============================================ */
+
+.navbar {
+  background-color: #1a56c4;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 16px;
+  padding-right: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 12px;
+}
+
+/* ── Left Section ── */
+.navbar__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar__hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.navbar__hamburger:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar__title {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.3px;
+  font-family: "Noto Sans Khmer", sans-serif;
+  white-space: nowrap;
+}
+
+/* ── Right Section ── */
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Search */
+.navbar__search {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  gap: 8px;
+  min-width: 160px;
+  max-width: 240px;
+  flex: 1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__search-input {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #333;
+  background: transparent;
+  width: 100%;
+  font-family: inherit;
+}
+
+.navbar__search-input::placeholder {
+  color: #aaa;
+}
+
+/* Bell */
+.navbar__bell {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.navbar__bell-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #ef4444;
+  color: #fff;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #1a56c4;
+}
+
+/* Avatar */
+.navbar__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #dbeafe;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.navbar__avatar:hover {
+  opacity: 0.85;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+/* Tablet (max 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 8px;
+  }
+
+  .navbar__title {
+    font-size: 17px;
+  }
+
+  .navbar__search {
+    min-width: 120px;
+    max-width: 180px;
+    padding: 5px 10px;
+  }
+}
+
+/* Mobile (max 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 6px;
+    height: 56px;
+  }
+
+  .navbar__title {
+    font-size: 15px;
+  }
+
+  /* Hide search on very small screens */
+  .navbar__search {
+    display: none;
+  }
+
+  .navbar__right {
+    gap: 8px;
+  }
+}

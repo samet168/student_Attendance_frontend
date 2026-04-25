@@ -1,0 +1,210 @@
+/* ============================================
+   Sidebar.css
+   ============================================ */
+
+/* ── Overlay (mobile) ── */
+.sidebar__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 199;
+}
+
+/* ── Sidebar Container ── */
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e8edf3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Noto Sans Khmer", "Khmer OS Battambang", sans-serif;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.06);
+  top: 0;
+  left: 0;
+  z-index: 200;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Desktop: sticky в потоке */
+.sidebar--desktop {
+  position: sticky;
+  transform: translateX(0) !important;
+}
+
+/* Mobile: fixed + slide */
+.sidebar--mobile {
+  position: fixed;
+}
+
+.sidebar--mobile.sidebar--closed {
+  transform: translateX(-100%);
+}
+
+.sidebar--mobile.sidebar--open {
+  transform: translateX(0);
+}
+
+/* ── Logo Area ── */
+.sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 20px 18px;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar__logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #1a56c4;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar__logo-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a56c4;
+  line-height: 1.1;
+}
+
+.sidebar__logo-sub {
+  font-size: 12px;
+  color: #94a3b8;
+  font-family: sans-serif;
+}
+
+/* ── Navigation ── */
+.sidebar__nav {
+  padding: 12px 10px;
+}
+
+.sidebar__nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.sidebar__nav-link:hover:not(.sidebar__nav-link--active) {
+  background-color: #f1f5fd;
+  color: #1a56c4;
+}
+
+.sidebar__nav-link--active {
+  background-color: #1a56c4;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.sidebar__nav-icon {
+  flex-shrink: 0;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar__nav-link--active .sidebar__nav-icon {
+  opacity: 1;
+}
+
+/* ── User Profile (bottom) ── */
+.sidebar__user {
+  padding: 16px 20px;
+  border-top: 1px solid #f0f4f8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.sidebar__user:hover {
+  background-color: #f8fafc;
+}
+
+.sidebar__user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #dbeafe;
+  border: 2px solid #bfdbfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar__user-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.sidebar__user-id {
+  font-size: 12px;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar__nav-link {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    position: fixed;
+  }
+
+  .sidebar__logo {
+    padding: 16px 16px 14px;
+  }
+
+  .sidebar__nav {
+    padding: 10px 8px;
+  }
+
+  .sidebar__nav-link {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+
+  .sidebar__user {
+    padding: 14px 16px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .sidebar {
+    width: 220px;
+  }
+}
