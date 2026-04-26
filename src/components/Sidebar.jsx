@@ -43,6 +43,18 @@ const menuItems = [
       </svg>
     ),
   },
+  //student
+    {
+    id: "students",
+    path: "/students",
+    labelKh: "សិស្ស",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <path d="M20 6L9 17l-5-5 1.4-1.4L9 14.2 18.6 4.6z"/>
+      </svg>
+    ),
+    },
+
   {
 
     id: "notifications",

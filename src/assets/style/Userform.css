@@ -1,0 +1,275 @@
+/* ===== UserForm.css ===== */
+
+/* ── Page ───────────────────────────────────────────── */
+.user-form-page {
+  padding: 28px 24px;
+  font-family: "Noto Sans Khmer", "Khmer OS Battambang", sans-serif;
+  background-color: #f4f7fb;
+  min-height: calc(100vh - 64px);
+}
+
+/* ── Top bar ────────────────────────────────────────── */
+.user-form-page__topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.user-form-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.user-form-page__back:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.user-form-page__title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* ── Card ───────────────────────────────────────────── */
+.user-form-card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  max-width: 640px;
+}
+
+.user-form-card__header {
+  padding: 22px 28px;
+  border-bottom: 1.5px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-form-card__header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #1a56c4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-form-card__header-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 2px;
+}
+
+.user-form-card__header-sub {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ── Form body ──────────────────────────────────────── */
+.user-form-card__body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Field ──────────────────────────────────────────── */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field__label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.form-field__required {
+  color: #ef4444;
+  font-size: 14px;
+}
+
+.form-field__input,
+.form-field__select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+}
+
+.form-field__input:focus,
+.form-field__select:focus {
+  border-color: #1a56c4;
+  box-shadow: 0 0 0 4px rgba(26, 86, 196, 0.1);
+  background: #ffffff;
+}
+
+.form-field__input::placeholder {
+  color: #cbd5e1;
+}
+
+.form-field__select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+/* Two-column row */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Error ──────────────────────────────────────────── */
+.form-error-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff5f5;
+  border: 1.5px solid #fecaca;
+  color: #dc2626;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 13px;
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-5px); }
+  75%       { transform: translateX(5px); }
+}
+
+/* ── Success ────────────────────────────────────────── */
+.form-success-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f0fdf4;
+  border: 1.5px solid #a7f3d0;
+  color: #059669;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 13px;
+}
+
+/* ── Footer / Actions ───────────────────────────────── */
+.user-form-card__footer {
+  padding: 20px 28px;
+  border-top: 1.5px solid #f1f5f9;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.btn-cancel {
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.15s;
+}
+
+.btn-cancel:hover { background-color: #f1f5f9; }
+
+.btn-submit {
+  padding: 11px 28px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1a56c4;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 12px rgba(26, 86, 196, 0.3);
+  transition: background-color 0.18s, opacity 0.18s, transform 0.1s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #1546a8;
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-submit--danger {
+  background-color: #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-submit--danger:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+/* ── Loading skeleton ───────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 8px;
+  height: 42px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  .user-form-page { padding: 16px 12px; }
+  .user-form-card__body { padding: 20px 16px; }
+  .user-form-card__footer { padding: 16px; }
+  .form-row { grid-template-columns: 1fr; }
+  .user-form-card { max-width: 100%; }
+  .btn-cancel, .btn-submit { width: 100%; justify-content: center; }
+  .user-form-card__footer { flex-direction: column-reverse; }
+}

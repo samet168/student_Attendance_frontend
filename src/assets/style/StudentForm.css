@@ -1,0 +1,124 @@
+/* background page */
+.form-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f4f6f9;
+  padding: 20px;
+}
+
+/* card */
+.form-card {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* title */
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* form group */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+/* input + select */
+.form-group input,
+.form-group select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #4f46e5;
+}
+
+/* error */
+.error-box {
+  background: #ffe5e5;
+  color: #d60000;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* buttons */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+/* ─── BUTTON WRAPPER ─── */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ─── BACK BUTTON ─── */
+.btn-cancel {
+  flex: 1;
+  text-align: center;
+  background: #e5e7eb;
+  color: #333;
+  padding: 11px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  background: #d1d5db;
+  transform: translateY(-1px);
+}
+
+/* ─── SAVE BUTTON ─── */
+.btn-save {
+  flex: 1;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+}
+
+.btn-save:disabled {
+  background: #a5a5a5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
