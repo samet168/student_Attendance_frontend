@@ -32,7 +32,7 @@ const menuItems = [
   },
     {
     id: "class",
-    path: "/class",
+    path: "/classes",
     labelKh: "ថ្នាក់រៀន",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

@@ -20,7 +20,7 @@ const AddStudent = () => {
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
-        const res = await API_URL.get("/admin/classroom");
+        const res = await API_URL.get("/classroom");
         setClassrooms(res.data.data || []);
       } catch {
         alert("មិនអាចទាញថ្នាក់បាន");
@@ -48,7 +48,7 @@ const AddStudent = () => {
     setLoading(true);
 
     try {
-      await API_URL.post("/admin/student", {
+      await API_URL.post("/student", {
         ...form,
         classroom_id: Number(form.classroom_id),
       });

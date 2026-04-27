@@ -27,7 +27,7 @@ const Dashboard = () => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await API_URL.get("/admin/user", {
+        const res = await API_URL.get("/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const list = res.data?.data?.data ?? res.data?.data ?? [];
@@ -48,7 +48,7 @@ const Dashboard = () => {
     setLoadingId(deleteId);
     try {
       const token = localStorage.getItem("token");
-      await API_URL.delete(`admin//user/${deleteId}`, {
+      await API_URL.delete(`/user/${deleteId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // ✅ remove user from list without re-fetch

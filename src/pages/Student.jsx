@@ -4,14 +4,15 @@ import API_URL from "../Api/api";
 import "../assets/style/Student.css";
 
 const Student = () => {
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
   const [students, setStudents] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [search, setSearch]     = useState("");
-  const [loading, setLoading]   = useState(false);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [deleteId, setDeleteId]   = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
   const [deleteName, setDeleteName] = useState("");
   const [loadingDel, setLoadingDel] = useState(false);
 
@@ -19,7 +20,7 @@ const Student = () => {
   const fetchStudents = async () => {
     setLoading(true);
     try {
-      const res = await API_URL.get("/admin/student");
+      const res = await API_URL.get("/student");
       setStudents(res.data.data || []);
       setFiltered(res.data.data || []);
     } catch {
@@ -29,18 +30,22 @@ const Student = () => {
     }
   };
 
-  useEffect(() => { fetchStudents(); }, []);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchStudents();
+  }, []);
 
   /* ── Search ── */
   useEffect(() => {
     const q = search.toLowerCase();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFiltered(
       students.filter(
         (s) =>
           s.name.toLowerCase().includes(q) ||
           s.student_id_card.toLowerCase().includes(q) ||
-          (s.phone || "").includes(q)
-      )
+          (s.phone || "").includes(q),
+      ),
     );
   }, [search, students]);
 
@@ -54,7 +59,7 @@ const Student = () => {
   const handleDelete = async () => {
     setLoadingDel(true);
     try {
-      await API_URL.delete(`/admin/student/${deleteId}`);
+      await API_URL.delete(`/student/${deleteId}`);
       setDeleteId(null);
       fetchStudents();
     } catch {
@@ -66,7 +71,6 @@ const Student = () => {
 
   return (
     <div className="stu-page">
-
       {/* ── HEADER ── */}
       <div className="stu-header">
         <div>
@@ -81,15 +85,19 @@ const Student = () => {
 
       {/* ── CARD ── */}
       <div className="stu-card">
-
         {/* search */}
         <div className="stu-card-head">
           <span className="stu-count">
             សរុប <strong>{filtered.length}</strong> នាក់
           </span>
           <div className="stu-search-wrap">
-            <svg className="stu-search-icon" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2">
+            <svg
+              className="stu-search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <circle cx="11" cy="11" r="8" />
               <path strokeLinecap="round" d="M21 21l-4.35-4.35" />
             </svg>
@@ -139,7 +147,9 @@ const Student = () => {
                     </td>
                     <td className="stu-td-name">{s.name}</td>
                     <td>
-                      <span className={`stu-gender ${s.gender === "Female" ? "female" : "male"}`}>
+                      <span
+                        className={`stu-gender ${s.gender === "Female" ? "female" : "male"}`}
+                      >
                         {s.gender === "Female" ? "♀ ស្រី" : "♂ ប្រុស"}
                       </span>
                     </td>
@@ -172,12 +182,12 @@ const Student = () => {
       {deleteId && (
         <div className="stu-overlay" onClick={() => setDeleteId(null)}>
           <div className="stu-modal" onClick={(e) => e.stopPropagation()}>
-
             <div className="stu-modal-icon">🗑️</div>
             <h3>បញ្ជាក់ការលុប</h3>
             <p>
               តើអ្នកចង់លុប <strong>{deleteName}</strong> មែនទេ?
-              <br />ទិន្នន័យនឹងបាត់ជាអចិន្ត្រៃយ៍។
+              <br />
+              ទិន្នន័យនឹងបាត់ជាអចិន្ត្រៃយ៍។
             </p>
 
             <div className="stu-modal-actions">
@@ -195,11 +205,9 @@ const Student = () => {
                 {loadingDel ? "កំពុងលុប..." : "លុប"}
               </button>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 };

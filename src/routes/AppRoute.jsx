@@ -11,6 +11,13 @@ import Edit from "../pages/CRUD_DSB/Edit";
 import Student from "../pages/Student";
 import AddStudent from "../pages/CRUD_STU/AddStudent";
 import EditStudent from "../pages/CRUD_STU/EditStudent";
+import AddClass from "../pages/CRUD_CLASS/AddClass";
+import EditClass from "../pages/CRUD_CLASS/EditClass";
+import Attendance from "../pages/Attendance";
+import AddAttendance from "../pages/CRUD_Attendance/AddAttendance";
+import EditAttendance from "../pages/CRUD_Attendance/EditAttendance";
+import Stu_Attendance from "../pages/Stu_Attendance";
+import CountAttendance from "../pages/CountAttendance";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +49,38 @@ const router = createBrowserRouter([
         element: <EditStudent />
       },
       {
+        path:"/classes",
+        element: <Class />
+      },
+      {
+        path:"/classes/add",
+        element: <AddClass />
+      },
+      {
+        path:"/classes/edit/:id",
+        element: <EditClass />
+      },
+      {
+        path:"/attendances",
+        element: <Attendance />
+      },
+      {
+        path:"/attendance",
+        element: <Stu_Attendance />
+      },
+      {
+        path:"/attendance/count",
+        element: <CountAttendance />
+      },
+      {
+        path:"/attendance/add",
+        element: <AddAttendance />
+      },
+      {
+        path:"/attendance/edit/:id",
+        element: <EditAttendance />
+      },
+      {
         path:"login",
         element: <Login />
       },
@@ -57,10 +96,7 @@ const router = createBrowserRouter([
         path: "settings",
         element: <Settings />,
       },
-      {
-        path: "class",
-        element: <Class />,
-      }
+
     ],
   },
 ]);

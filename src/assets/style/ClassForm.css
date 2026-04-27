@@ -1,0 +1,240 @@
+/* ===== ClassForm.css ===== */
+
+/* ── Overlay ────────────────────────────────────────── */
+.classform-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 16px;
+  animation: cf-fadeIn 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+@keyframes cf-fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal Box ──────────────────────────────────────── */
+.classform-box {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.20);
+  overflow: hidden;
+  animation: cf-slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: "Noto Sans Khmer", "Khmer OS Battambang", "System-ui", sans-serif;
+}
+
+@keyframes cf-slideUp {
+  from { transform: translateY(40px) scale(0.95); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.classform-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px 20px;
+  border-bottom: 1.5px solid #f1f5f9;
+}
+
+.classform-header__title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 3px 0;
+}
+
+.classform-header__sub {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Close button */
+.classform-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.classform-close:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  transform: rotate(90deg);
+}
+
+/* ── Form Body ──────────────────────────────────────── */
+.classform-body {
+  padding: 28px 28px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Label ──────────────────────────────────────────── */
+.classform-field label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.classform-required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+/* ── Input ──────────────────────────────────────────── */
+.classform-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.8px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.classform-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+  background: #ffffff;
+}
+
+.classform-input::placeholder {
+  color: #94a3b8;
+}
+
+.classform-input:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+/* Loading text */
+.loading-text {
+  padding: 13px 16px;
+  color: #64748b;
+  font-size: 14.5px;
+  background: #f8fafc;
+  border: 1.8px solid #e2e8f0;
+  border-radius: 12px;
+  font-style: italic;
+}
+
+/* ── Error ──────────────────────────────────────────── */
+.classform-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fef2f2;
+  border: 1.5px solid #fecaca;
+  color: #dc2626;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  animation: cf-shake 0.4s ease;
+}
+
+@keyframes cf-shake {
+  0%, 100% { transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+}
+
+/* ── Footer ─────────────────────────────────────────── */
+.classform-footer {
+  display: flex;
+  gap: 12px;
+  padding: 20px 28px 28px;
+}
+
+.classform-btn-cancel {
+  flex: 1;
+  padding: 13px 20px;
+  border-radius: 12px;
+  border: 1.8px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.classform-btn-cancel:hover:not(:disabled) {
+  background-color: #f1f5f9;
+}
+
+.classform-btn-submit {
+  flex: 2;
+  padding: 13px 20px;
+  border-radius: 12px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.classform-btn-submit--edit {
+  background-color: #6366f1;
+  color: #ffffff;
+}
+
+.classform-btn-submit--edit:hover:not(:disabled) {
+  background-color: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+}
+
+.classform-btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .classform-box {
+    border-radius: 16px;
+    max-width: 100%;
+  }
+
+  .classform-header,
+  .classform-body,
+  .classform-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .classform-body { padding-top: 24px; }
+}

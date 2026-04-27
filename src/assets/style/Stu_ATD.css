@@ -1,0 +1,392 @@
+/* ============================================================
+   Stu_Attendance.css
+   scoped to .att-* — matches the dashboard UI in the screenshot
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap');
+
+/* ── Tokens ── */
+:root {
+  --att-primary:      #1a56db;
+  --att-primary-dk:   #1e429f;
+  --att-primary-lt:   #e8f0fe;
+  --att-bg:           #eef2fb;
+  --att-white:        #ffffff;
+  --att-text:         #111827;
+  --att-muted:        #6b7280;
+  --att-border:       #e5e7eb;
+  --att-shadow:       0 2px 16px rgba(26,86,219,.08);
+  --att-radius:       14px;
+  --att-radius-sm:    8px;
+  --att-font:         'Kantumruy Pro', sans-serif;
+
+  /* status colours */
+  --present:   #057a55;
+  --present-lt:#d1fae5;
+  --absent:    #e02424;
+  --absent-lt: #fde8e8;
+  --late:      #d97706;
+  --late-lt:   #fef3c7;
+  --perm:      #7c3aed;
+  --perm-lt:   #ede9fe;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ══════════════════════════════════════
+   PAGE
+══════════════════════════════════════ */
+.att-page {
+  min-height: 100vh;
+  padding: 28px 32px;
+  background: var(--att-bg);
+  font-family: var(--att-font);
+}
+
+/* ── Toast ── */
+.att-toast {
+  position: fixed;
+  top: 22px;
+  right: 26px;
+  z-index: 9999;
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0,0,0,.14);
+  animation: slideRight .25s cubic-bezier(.34,1.56,.64,1);
+}
+.att-toast.success { background: var(--present-lt); color: var(--present); border-left: 4px solid var(--present); }
+.att-toast.error   { background: var(--absent-lt);  color: var(--absent);  border-left: 4px solid var(--absent);  }
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ══════════════════════════════════════
+   PAGE TITLE
+══════════════════════════════════════ */
+.att-page-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.att-page-icon { font-size: 32px; line-height: 1; }
+
+.att-page-title h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--att-text);
+}
+
+.att-page-title p {
+  font-size: 13px;
+  color: var(--att-muted);
+  margin-top: 2px;
+}
+
+/* ══════════════════════════════════════
+   STAT CARDS  (4 cards row)
+══════════════════════════════════════ */
+.att-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.att-stat-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--att-white);
+  border-radius: var(--att-radius);
+  padding: 20px 22px;
+  border: 1px solid var(--att-border);
+  box-shadow: var(--att-shadow);
+}
+
+.att-stat-label {
+  display: block;
+  font-size: 13px;
+  color: var(--att-muted);
+  margin-bottom: 6px;
+}
+
+.att-stat-num {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.att-stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+/* card colour variants */
+.card-blue  .att-stat-num  { color: var(--att-primary); }
+.card-blue  .att-stat-icon { background: var(--att-primary); }
+
+.card-green .att-stat-num  { color: var(--present); }
+.card-green .att-stat-icon { background: var(--present); }
+
+.card-red   .att-stat-num  { color: var(--absent); }
+.card-red   .att-stat-icon { background: var(--absent); }
+
+.card-yellow .att-stat-num  { color: var(--late); }
+.card-yellow .att-stat-icon { background: var(--late); }
+
+/* ══════════════════════════════════════
+   MAIN CARD
+══════════════════════════════════════ */
+.att-card {
+  background: var(--att-white);
+  border-radius: var(--att-radius);
+  box-shadow: var(--att-shadow);
+  border: 1px solid var(--att-border);
+  overflow: hidden;
+}
+
+/* ── Card header ── */
+.att-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--att-border);
+}
+
+.att-card-head h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--att-text);
+}
+
+.att-card-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* search */
+.att-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.att-search-ico {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: var(--att-muted);
+  pointer-events: none;
+}
+.att-search {
+  border: 1.5px solid var(--att-border);
+  border-radius: var(--att-radius-sm);
+  padding: 8px 12px 8px 32px;
+  font-size: 13px;
+  font-family: var(--att-font);
+  color: var(--att-text);
+  background: var(--att-bg);
+  outline: none;
+  width: 210px;
+  transition: border-color .15s, box-shadow .15s;
+}
+.att-search:focus {
+  border-color: var(--att-primary);
+  box-shadow: 0 0 0 3px rgba(26,86,219,.10);
+  background: #fff;
+}
+.att-search::placeholder { color: var(--att-muted); }
+
+/* save button */
+.att-btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--att-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--att-radius-sm);
+  padding: 9px 18px;
+  font-size: 13px;
+  font-family: var(--att-font);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .16s, transform .12s, box-shadow .16s;
+  box-shadow: 0 2px 10px rgba(26,86,219,.22);
+}
+.att-btn-save:hover:not(:disabled) {
+  background: var(--att-primary-dk);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(26,86,219,.28);
+}
+.att-btn-save:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ── Table ── */
+.att-table-wrap { overflow-x: auto; }
+
+.att-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  font-family: var(--att-font);
+}
+
+.att-table thead tr {
+  border-bottom: 1.5px solid var(--att-border);
+}
+.att-table thead th {
+  padding: 11px 14px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--att-muted);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  white-space: nowrap;
+  background: #fafbff;
+}
+
+.att-table tbody tr {
+  border-bottom: 1px solid var(--att-border);
+  transition: background .12s;
+}
+.att-table tbody tr:last-child { border-bottom: none; }
+.att-table tbody tr:hover      { background: var(--att-primary-lt); }
+
+.att-table td {
+  padding: 12px 14px;
+  color: var(--att-text);
+  vertical-align: middle;
+}
+
+.att-td-num { color: var(--att-muted); font-size: 13px; width: 44px; }
+
+/* ── ID badge ── */
+.att-id-badge {
+  display: inline-block;
+  background: var(--att-primary-lt);
+  color: var(--att-primary-dk);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+/* ── Status badge (column) ── */
+.att-status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 20px;
+}
+.att-status-badge.present    { background: var(--present-lt); color: var(--present); }
+.att-status-badge.absent     { background: var(--absent-lt);  color: var(--absent);  }
+.att-status-badge.late       { background: var(--late-lt);    color: var(--late);    }
+.att-status-badge.permission { background: var(--perm-lt);    color: var(--perm);    }
+
+/* ── Radio pill buttons ── */
+.att-radios {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.att-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all .14s;
+  user-select: none;
+}
+
+.att-radio-label input[type="radio"] {
+  display: none; /* hide native radio; style via .active */
+}
+
+/* default (inactive) state */
+.att-radio-label.present    { background: #f0fdf4; color: var(--present); border-color: #bbf7d0; }
+.att-radio-label.absent     { background: #fff5f5; color: var(--absent);  border-color: #fecaca; }
+.att-radio-label.late       { background: #fffbeb; color: var(--late);    border-color: #fde68a; }
+.att-radio-label.perm       { background: #f5f3ff; color: var(--perm);    border-color: #ddd6fe; }
+
+/* active (selected) state */
+.att-radio-label.present.active  { background: var(--present); color: #fff; border-color: var(--present); }
+.att-radio-label.absent.active   { background: var(--absent);  color: #fff; border-color: var(--absent);  }
+.att-radio-label.late.active     { background: var(--late);    color: #fff; border-color: var(--late);    }
+.att-radio-label.perm.active     { background: var(--perm);    color: #fff; border-color: var(--perm);    }
+
+.att-radio-label:hover { filter: brightness(.95); transform: translateY(-1px); }
+
+/* ── State cells (loading / empty) ── */
+.att-state-cell {
+  text-align: center !important;
+  padding: 60px 20px !important;
+  color: var(--att-muted);
+  font-size: 15px;
+}
+.att-spinner {
+  width: 38px;
+  height: 38px;
+  border: 3px solid var(--att-border);
+  border-top-color: var(--att-primary);
+  border-radius: 50%;
+  animation: spin .75s linear infinite;
+  margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.att-empty-img { font-size: 52px; margin-bottom: 10px; }
+
+/* ── Card footer ── */
+.att-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-top: 1px solid var(--att-border);
+  font-size: 13px;
+  color: var(--att-muted);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.att-card-foot strong { color: var(--att-primary); }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .att-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .att-page        { padding: 18px 12px; }
+  .att-stats       { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .att-card-head   { flex-direction: column; align-items: flex-start; }
+  .att-search      { width: 100%; }
+  .att-radios      { gap: 4px; }
+  .att-radio-label { padding: 4px 8px; font-size: 11px; }
+}
