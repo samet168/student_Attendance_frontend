@@ -42,7 +42,7 @@ const Add = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      await API_URL.post("/admin/user", form, {
+      await API_URL.post("/user", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -22,7 +22,8 @@ const AddStudent = () => {
       try {
         const res = await API_URL.get("/classroom");
         setClassrooms(res.data.data || []);
-      } catch {
+      } catch (err) {
+        console.log(err);
         alert("មិនអាចទាញថ្នាក់បាន");
       } finally {
         setLoadingClass(false);
@@ -40,7 +41,8 @@ const AddStudent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.classroom_id || !form.student_id_card || !form.name || !form.phone) {
+    // 🔥 VALIDATION FIX
+    if (!form.classroom_id || !form.student_id_card || !form.name) {
       setError("សូមបំពេញព័ត៌មានទាំងអស់");
       return;
     }
@@ -48,10 +50,17 @@ const AddStudent = () => {
     setLoading(true);
 
     try {
-      await API_URL.post("/student", {
-        ...form,
+      const payload = {
         classroom_id: Number(form.classroom_id),
-      });
+        student_id_card: form.student_id_card.trim(),
+        name: form.name.trim(),
+        gender: form.gender,
+        phone: form.phone,
+      };
+
+      console.log("📦 SEND:", payload);
+
+      const res = await API_URL.post("/student", payload);
 
       alert("បានបន្ថែមសិស្សជោគជ័យ!");
 
@@ -64,7 +73,14 @@ const AddStudent = () => {
       });
 
     } catch (err) {
-      alert(err.response?.data?.message || "មានបញ្ហាកើតឡើង");
+      console.log("❌ ERROR:", err.response?.data);
+
+      // 🔥 SHOW REAL LARAVEL ERROR
+      setError(
+        err.response?.data?.message ||
+        JSON.stringify(err.response?.data) ||
+        "មានបញ្ហាកើតឡើង"
+      );
     } finally {
       setLoading(false);
     }
@@ -72,7 +88,6 @@ const AddStudent = () => {
 
   return (
     <div className="form-page">
-
       <div className="form-card">
 
         <h2 className="form-title">➕ បន្ថែមសិស្ស</h2>
@@ -82,7 +97,11 @@ const AddStudent = () => {
           {/* classroom */}
           <div className="form-group">
             <label>ថ្នាក់</label>
-            <select name="classroom_id" onChange={handleChange} value={form.classroom_id}>
+            <select
+              name="classroom_id"
+              onChange={handleChange}
+              value={form.classroom_id}
+            >
               <option value="">
                 {loadingClass ? "កំពុងផ្ទុក..." : "-- ជ្រើសថ្នាក់ --"}
               </option>
@@ -98,19 +117,31 @@ const AddStudent = () => {
           {/* id card */}
           <div className="form-group">
             <label>អត្តលេខសិស្ស</label>
-            <input name="student_id_card" onChange={handleChange} value={form.student_id_card} />
+            <input
+              name="student_id_card"
+              onChange={handleChange}
+              value={form.student_id_card}
+            />
           </div>
 
           {/* name */}
           <div className="form-group">
             <label>ឈ្មោះ</label>
-            <input name="name" onChange={handleChange} value={form.name} />
+            <input
+              name="name"
+              onChange={handleChange}
+              value={form.name}
+            />
           </div>
 
           {/* gender */}
           <div className="form-group">
             <label>ភេទ</label>
-            <select name="gender" onChange={handleChange} value={form.gender}>
+            <select
+              name="gender"
+              onChange={handleChange}
+              value={form.gender}
+            >
               <option value="Male">ប្រុស</option>
               <option value="Female">ស្រី</option>
             </select>
@@ -119,31 +150,31 @@ const AddStudent = () => {
           {/* phone */}
           <div className="form-group">
             <label>លេខទូរស័ព្ទ</label>
-            <input name="phone" onChange={handleChange} value={form.phone} />
+            <input
+              name="phone"
+              onChange={handleChange}
+              value={form.phone}
+            />
           </div>
 
           {/* error */}
           {error && <div className="error-box">⚠️ {error}</div>}
 
-          {/* buttons */}
+          {/* actions */}
           <div className="form-actions">
-            
-            <Link
-                to={`/students`}
-                className="btn-cancel"
-              >
-                🔙 ត្រលប់ក្រោយ
-              </Link>
+
+            <Link to={`/students`} className="btn-cancel">
+              🔙 ត្រលប់ក្រោយ
+            </Link>
 
             <button type="submit" className="btn-save" disabled={loading}>
               {loading ? "កំពុងរក្សាទុក..." : "💾 រក្សាទុក"}
             </button>
+
           </div>
 
         </form>
-
       </div>
-
     </div>
   );
 };

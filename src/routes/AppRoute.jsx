@@ -17,7 +17,11 @@ import Attendance from "../pages/Attendance";
 import AddAttendance from "../pages/CRUD_Attendance/AddAttendance";
 import EditAttendance from "../pages/CRUD_Attendance/EditAttendance";
 import Stu_Attendance from "../pages/Stu_Attendance";
-import CountAttendance from "../pages/CountAttendance";
+
+import ViewAttendance from "../pages/ViewAttendance";
+import Subjects from "../pages/subjects";
+import AddSubjects from "../pages/CRUD_subjects/Add";
+import EditSubjects from "../pages/CRUD_subjects/Edit";
 
 const router = createBrowserRouter([
   {
@@ -68,9 +72,10 @@ const router = createBrowserRouter([
         path:"/attendance",
         element: <Stu_Attendance />
       },
+
       {
-        path:"/attendance/count",
-        element: <CountAttendance />
+        path:"/attendance/view",
+        element: <ViewAttendance />
       },
       {
         path:"/attendance/add",
@@ -79,6 +84,18 @@ const router = createBrowserRouter([
       {
         path:"/attendance/edit/:id",
         element: <EditAttendance />
+      },
+      {
+        path:"/subjects",
+        element: <Subjects />
+      },
+      {
+        path:"/subjects/add",
+        element: <AddSubjects />
+      },
+      {
+        path:"/subjects/edit/:id",
+        element: <EditSubjects />
       },
       {
         path:"login",

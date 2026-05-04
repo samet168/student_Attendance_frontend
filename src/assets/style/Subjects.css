@@ -1,0 +1,121 @@
+.sub-page {
+  padding: 25px;
+  background: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* HEADER */
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sub-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.sub-header p {
+  margin: 0;
+  color: gray;
+  font-size: 13px;
+}
+
+/* BUTTONS */
+.sub-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-add {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-refresh {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* CARD */
+.sub-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* TABLE */
+.sub-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sub-table th {
+  background: #f1f5f9;
+  padding: 12px;
+  text-align: left;
+}
+
+.sub-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* BADGES */
+.badge-name {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.badge-code {
+  background: #fef9c3;
+  color: #92400e;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: #f59e0b;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* STATES */
+.sub-loading,
+.sub-empty {
+  text-align: center;
+  padding: 30px;
+  color: gray;
+}

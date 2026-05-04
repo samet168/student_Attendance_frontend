@@ -208,3 +208,21 @@
     width: 220px;
   }
 }
+
+
+.sidebar__submenu {
+  padding-left: 35px;
+  margin-top: 5px;
+}
+
+.sidebar__submenu-link {
+  display: block;
+  padding: 8px 12px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.sidebar__submenu-link:hover {
+  color: white;
+}
