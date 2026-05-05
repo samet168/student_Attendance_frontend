@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import API_URL from "../Api/api";
 import { Link } from "react-router-dom";
@@ -8,6 +9,7 @@ const Subjects = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/immutability
     fetchSubjects();
   }, []);
 
@@ -39,17 +41,17 @@ const Subjects = () => {
       {/* HEADER */}
       <div className="sub-header">
         <div>
-          <h2>📘 មុខវិជ្ជា</h2>
+          <h2>មុខវិជ្ជា</h2>
           <p>គ្រប់គ្រងមុខវិជ្ជាទាំងអស់</p>
         </div>
 
         <div className="sub-actions">
           <button className="btn-refresh" onClick={fetchSubjects}>
-            🔄 Refresh
+            Refresh
           </button>
 
           <Link to="/subjects/add">
-            <button className="btn-add">➕ បន្ថែម</button>
+            <button className="btn-add">បន្ថែម</button>
           </Link>
         </div>
       </div>
@@ -58,9 +60,9 @@ const Subjects = () => {
       <div className="sub-card">
 
         {loading ? (
-          <div className="sub-loading">⏳ កំពុងផ្ទុក...</div>
+          <div className="sub-loading">កំពុងផ្ទុក...</div>
         ) : subjects.length === 0 ? (
-          <div className="sub-empty">❌ មិនមានមុខវិជ្ជា</div>
+          <div className="sub-empty">មិនមានមុខវិជ្ជា</div>
         ) : (
           <table className="sub-table">
             <thead>

@@ -415,3 +415,39 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
   .att-card-foot { flex-direction: column; gap: 10px; align-items: flex-start; }
   .att-stats { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ===== Dropdown Style (Improved) ===== */
+.att-select {
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: .875rem;
+  outline: none;
+  min-width: 180px;
+
+  /* 🎯 NEW STYLE */
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+
+  font-family: 'Hanuman', serif;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+/* hover */
+.att-select:hover {
+  border-color: #3a6df0;
+}
+
+/* focus */
+.att-select:focus {
+  border-color: #3a6df0;
+  box-shadow: 0 0 0 2px rgba(58,109,240,0.2);
+}
+
+/* dropdown option */
+.att-select option {
+  background: #ffffff;
+  color: #1e293b;
+  font-family: 'Hanuman', serif;
+}

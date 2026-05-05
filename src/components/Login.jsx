@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../Api/api";
-import "../assets/style/Login.css"; // ✅ import style
+import "../assets/style/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,15 +22,27 @@ const Login = () => {
         password,
       });
 
-      // save token + user
-      localStorage.setItem("token", res.data.token);
+      console.log("LOGIN RESPONSE:", res.data);
+
+      // 🔥 YOUR BACKEND RETURNS: token
+      const token = res.data.token;
+
+      if (!token) {
+        setError("Token មិនបានទទួលពី server");
+        return;
+      }
+
+      // ✅ save token + user
+      localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       // redirect
       navigate("/");
     } catch (err) {
+      console.error(err.response?.data || err);
+
       setError(
-        err.response?.data?.message || "Email ឬ Password មិនត្រឹមត្រូវ"
+        err.response?.data?.message || "Login មិនជោគជ័យ"
       );
     } finally {
       setLoading(false);
@@ -51,6 +63,7 @@ const Login = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="បញ្ចូល Email"
               required
             />
           </div>
@@ -61,6 +74,7 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="បញ្ចូល Password"
               required
             />
           </div>

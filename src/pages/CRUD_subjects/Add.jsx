@@ -32,7 +32,7 @@ const Add = () => {
     try {
       await API_URL.post("/subject", form);
 
-      alert("✅ បន្ថែមជោគជ័យ");
+      alert("បន្ថែមជោគជ័យ");
 
       navigate("/subjects");
     } catch (err) {
@@ -47,7 +47,7 @@ const Add = () => {
 
       <div className="form-card">
 
-        <h2 className="form-title">➕ បន្ថែមមុខវិជ្ជា</h2>
+        <h2 className="form-title">បន្ថែមមុខវិជ្ជា</h2>
         <p className="form-sub">សូមបញ្ចូលព័ត៌មានមុខវិជ្ជា</p>
 
         <form onSubmit={handleSubmit}>
@@ -77,7 +77,7 @@ const Add = () => {
           </div>
 
           {/* error */}
-          {error && <div className="error-box">❌ {error}</div>}
+          {error && <div className="error-box"> {error}</div>}
 
           {/* buttons */}
           <div className="form-actions">
@@ -87,7 +87,7 @@ const Add = () => {
               className="btn-cancel"
               onClick={() => navigate("/subjects")}
             >
-              🔙 ត្រលប់
+              ← ត្រឡប់ក្រោយ
             </button>
 
             <button
@@ -95,7 +95,7 @@ const Add = () => {
               className="btn-save"
               disabled={loading}
             >
-              {loading ? "⏳ កំពុងរក្សាទុក..." : "💾 Save"}
+              {loading ? "⏳ កំពុងរក្សាទុក..." : "Save"}
             </button>
 
           </div>

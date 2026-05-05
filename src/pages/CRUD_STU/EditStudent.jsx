@@ -24,7 +24,7 @@ const EditStudent = () => {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const res = await API_URL.get(`/admin/student/${id}`);
+        const res = await API_URL.get(`/student/${id}`);
         setForm(res.data.data);
       } catch {
         alert("មិនអាចទាញទិន្នន័យសិស្សបាន");
@@ -38,7 +38,7 @@ const EditStudent = () => {
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
-        const res = await API_URL.get("/admin/classroom");
+        const res = await API_URL.get("/classroom");
         setClassrooms(res.data.data || []);
       } catch {
         alert("មិនអាចទាញថ្នាក់បាន");
@@ -66,7 +66,7 @@ const EditStudent = () => {
     setLoading(true);
 
     try {
-      await API_URL.post(`/admin/student/${id}`, {
+      await API_URL.post(`/student/${id}`, {
         ...form,
         classroom_id: Number(form.classroom_id),
       });
@@ -85,7 +85,7 @@ const EditStudent = () => {
 
       <div className="form-card">
 
-        <h2 className="form-title">✏️ កែប្រែសិស្ស</h2>
+        <h2 className="form-title">កែប្រែសិស្ស</h2>
 
         <form onSubmit={handleSubmit}>
 
@@ -158,12 +158,12 @@ const EditStudent = () => {
           {/* buttons */}
           <div className="form-actions">
 
-            <Link to="/students" className="btn-back">
+            <Link to={`/students`} className="btn-cancel" style={{textDecoration: "none"}}>
               🔙 ត្រលប់ក្រោយ
             </Link>
 
             <button type="submit" className="btn-save" disabled={loading}>
-              {loading ? "កំពុងរក្សាទុក..." : "💾 រក្សាទុក"}
+              {loading ? "កំពុងរក្សាទុក..." : "រក្សាទុក"}
             </button>
 
           </div>

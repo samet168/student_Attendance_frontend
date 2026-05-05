@@ -3,24 +3,40 @@ import API_URL from "../Api/api";
 import { Link } from "react-router-dom";
 import "../assets/style/Class.css";
 
-const Class = () => {
-  const [classes, setClasses]   = useState([]);
-  const [search, setSearch]     = useState("");
-  const [loading, setLoading]   = useState(true);
-  const [deleteId, setDeleteId] = useState(null);
-  const [deleting, setDeleting] = useState(false);
+const ACCENT_COLORS = [
+  "#378ADD", "#1D9E75", "#D85A30", "#D4537E",
+  "#7F77DD", "#639922", "#E89C2C", "#2A9D8F"
+];
 
-  // ── Fetch Classrooms ──
+// eslint-disable-next-line no-unused-vars
+
+
+const Class = () => {
+  const [classes, setClasses] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const fetchClassrooms = async () => {
     try {
       setLoading(true);
+      setError("");
       const token = localStorage.getItem("token");
+      
+      if (!token) {
+        setError("មិនមាន Token។ សូមចូលគណនីម្តងទៀត។");
+        setLoading(false);
+        return;
+      }
+
       const res = await API_URL.get("/classroom", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setClasses(res.data?.data ?? res.data ?? []);
+
+      setClasses(res.data.data || []);
     } catch (err) {
-      console.error("Fetch error:", err);
+      console.error(err);
+      setError("មិនអាចទាញយកទិន្នន័យថ្នាក់រៀនបានទេ។ សូមព្យាយាមម្តងទៀត។");
     } finally {
       setLoading(false);
     }
@@ -31,183 +47,152 @@ const Class = () => {
     fetchClassrooms();
   }, []);
 
-  // ── Delete ──
-  const handleDelete = async () => {
-    if (!deleteId) return;
-    setDeleting(true);
+  const handleDelete = async (id, name) => {
+    if (!window.confirm(`តើអ្នកពិតជាចង់លុបថ្នាក់ "${name}" មែនទេ?`)) return;
+
     try {
       const token = localStorage.getItem("token");
-      await API_URL.delete(`/classroom/${deleteId}`, {
+      await API_URL.delete(`/classroom/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setClasses((prev) => prev.filter((c) => c.id !== deleteId));
-      setDeleteId(null);
+
+      setClasses((prev) => prev.filter((c) => c.id !== id));
+      alert("លុបថ្នាក់រៀនបានជោគជ័យ!");
     } catch (err) {
-      console.error("Delete error:", err);
-      alert("មានបញ្ហាក្នុងការលុបថ្នាក់!");
-    } finally {
-      setDeleting(false);
+      console.error(err);
+      alert("មិនអាចលុបថ្នាក់រៀនបានទេ។");
     }
   };
 
-  // ── Filter ──
   const filtered = useMemo(() => {
     return classes.filter((c) =>
       c.name?.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, classes]);
 
-  const stripColors = [
-    "linear-gradient(90deg,#1a56c4,#3b82f6)",
-    "linear-gradient(90deg,#7c3aed,#a78bfa)",
-    "linear-gradient(90deg,#059669,#34d399)",
-    "linear-gradient(90deg,#d97706,#fbbf24)",
-    "linear-gradient(90deg,#dc2626,#f87171)",
-  ];
-
-  const deleteName = classes.find((c) => c.id === deleteId)?.name ?? "";
+  const Skeleton = () => (
+    <div className="cl-card cl-skeleton">
+      <div className="cl-card-accent" />
+      <div className="sk-line sk-name" />
+      <div className="sk-line sk-short" />
+      <div className="sk-stats">
+        <div className="sk-stat" />
+        <div className="sk-stat" />
+      </div>
+      <div className="sk-line sk-teacher" />
+      <div className="sk-actions">
+        <div className="sk-btn" />
+        <div className="sk-btn sk-btn-sm" />
+      </div>
+    </div>
+  );
 
   return (
-    <div className="class-page">
-
+    <div className="cl-page">
       {/* Header */}
-      <div className="class-header">
-        <div>
-          <h2 className="title">📚 ថ្នាក់រៀន</h2>
-          <p className="sub-title">បញ្ជីថ្នាក់ទាំងអស់ក្នុងប្រព័ន្ធ</p>
+      <div className="cl-header">
+        <div className="cl-title-block">
+          <p className="cl-eyebrow">ឆ្នាំសិក្សា ២០២៥–២៦</p>
+          <h2 className="cl-title">ថ្នាក់រៀន</h2>
         </div>
-      </div>
-
-      {/* Controls */}
-      <div className="class-controls">
-        <input
-          type="text"
-          className="search-box"
-          placeholder="🔍 ស្វែងរកថ្នាក់..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Link to="/classes/add" className="class-add-btn">
-          + បន្ថែមថ្នាក់
+        <Link to="/classes/add" className="cl-add-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          បន្ថែមថ្នាក់រៀនថ្មី
         </Link>
       </div>
 
-      {/* Content */}
-      {loading ? (
-        <div className="class-grid">
-          {[1,2,3,4,5,6].map((i) => <div key={i} className="class-skeleton" />)}
+      {/* Search */}
+      <div className="cl-controls">
+        <div className="cl-search-wrap">
+          <svg className="cl-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M12 12l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          <input
+            type="text"
+            className="cl-search-input"
+            placeholder="ស្វែងរកថ្នាក់រៀន..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
-      ) : (
-        <div className="class-grid">
-          {filtered.length === 0 ? (
-            <div className="class-empty">
-              <div className="class-empty__icon">🏫</div>
-              <div className="class-empty__text">រកមិនឃើញថ្នាក់</div>
-              <div className="class-empty__sub">
-                {search ? `មិនមានថ្នាក់ "${search}"` : "មិនទាន់មានថ្នាក់ណាមួយ"}
-              </div>
-            </div>
-          ) : (
-            filtered.map((item, index) => (
-              <div key={item.id} className="class-card">
-                <style>{`
-                  .class-card:nth-child(${index + 1})::before {
-                    background: ${stripColors[index % stripColors.length]};
-                  }
-                `}</style>
+      </div>
 
-                {/* Top Strip */}
-                <div className="class-top">
-                  <span className="badge">ថ្នាក់</span>
-                  <span className="class-index">{index + 1}</span>
-                </div>
+      <div className="cl-count-row">
+        <span className="cl-count-label">កំពុងបង្ហាញ</span>
+        <span className="cl-count-pill">
+          {loading ? "—" : `${filtered.length} ថ្នាក់រៀន`}
+        </span>
+      </div>
 
-                {/* Class Name */}
-                <h3 className="class-name">{item.name}</h3>
+      {error && <div className="cl-error">{error}</div>}
 
-                {/* Info */}
-                <div className="class-info">
-                  <p className="class-sub">
-                    <span>🏠</span> បន្ទប់: {item.room_number || "N/A"}
-                  </p>
-                  <p className="class-sub">
-                    <span>👥</span> សិស្ស: {item.students_count ?? 0} នាក់
-                  </p>
-                </div>
-
-                <div className="class-divider" />
-
-                {/* Footer */}
-                <div className="class-footer">
-                  <div className="teacher-tag">
-                    👨‍🏫 {item.teacher?.name ?? "គ្រូបង្រៀន"}
-                  </div>
-
-                  <div className="class-actions">
-                    {/* ហៅឈ្មោះតាមថ្នាក់ */}
-                    <Link 
-                      to={`/attendance?classroom_id=${item.id}`} 
-                      className="btn-view"
-                    >
-                      📋 ហៅឈ្មោះ
-                    </Link>
-
-                    <Link 
-                      to={`/classes/edit/${item.id}`} 
-                      className="btn-edit"
-                    >
-                      ✏️ កែ
-                    </Link>
-
-                    <button
-                      className="btn-delete"
-                      onClick={() => setDeleteId(item.id)}
-                    >
-                      🗑 លុប
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      )}
-
-      {/* Delete Confirmation Modal */}
-      {deleteId && (
-        <div className="modal-overlay" onClick={() => !deleting && setDeleteId(null)}>
-          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-
-            <div className="modal-box__icon-wrap">
-              <span className="modal-box__icon">🗑️</span>
-            </div>
-
-            <h3 className="modal-box__title">បញ្ជាក់ការលុប</h3>
-
-            <p className="modal-box__desc">
-              តើអ្នកពិតជាចង់លុបថ្នាក់ <strong>"{deleteName}"</strong> មែនទេ?<br />
-              ការលុបនេះមិនអាចត្រឡប់វិញបានទេ!
-            </p>
-
-            <div className="modal-box__actions">
-              <button
-                className="modal-btn modal-btn--cancel"
-                onClick={() => setDeleteId(null)}
-                disabled={deleting}
-              >
-                បោះបង់
-              </button>
-              <button
-                className="modal-btn modal-btn--delete"
-                onClick={handleDelete}
-                disabled={deleting}
-              >
-                {deleting ? "កំពុងលុប..." : "លុបចោល"}
-              </button>
-            </div>
+      <div className="cl-grid">
+        {loading ? (
+          Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} />)
+        ) : filtered.length === 0 ? (
+          <div className="cl-empty">
+            <p>រកមិនឃើញថ្នាក់រៀនដែលត្រូវនឹងការស្វែងរកទេ។</p>
           </div>
-        </div>
-      )}
+        ) : (
+          filtered.map((item, i) => (
+            <div
+              key={item.id}
+              className="cl-card"
+              style={{ "--accent": ACCENT_COLORS[i % ACCENT_COLORS.length] }}
+            >
+              <div className="cl-card-accent" />
+
+              <div className="cl-card-top">
+                <h3 className="cl-card-name">{item.name}</h3>
+                <span className="cl-room-badge">បន្ទប់ {item.room_number || "—"}</span>
+              </div>
+
+              <div className="cl-card-stats">
+                {/* បង្ហាញចំនួនសិស្សដោយប្រើ students_count ពី Backend */}
+                <div className="cl-stat">
+                  <span className="cl-stat-val">
+                    {/* {item.students_count || 0} */}
+                  </span>
+                  <span className="cl-stat-key">សិស្ស</span>
+                </div>
+
+                <div className="cl-stat-divider" />
+
+                <div className="cl-stat">
+                  <span className="cl-stat-val">
+                    {/* {item.teacher ? 1 : 0} */}
+                  </span>
+                  <span className="cl-stat-key">គ្រូ</span>
+                </div>
+              </div>
+
+              <div className="cl-divider" />
+
+              <div className="cl-teacher-row">
+                <span className="cl-teacher-label">គ្រូបង្រៀន:</span>
+              </div>
+
+              <div className="cl-card-actions">
+                <Link to={`/attendance?classroom_id=${item.id}`} className="cl-btn-attend">
+                  វត្តមាន
+                </Link>
+                <Link to={`/classes/edit/${item.id}`} className="cl-btn-edit">
+                  កែប្រែ
+                </Link>
+                <button
+                  onClick={() => handleDelete(item.id, item.name)}
+                  className="cl-btn-delete"
+                >
+                  លុប
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

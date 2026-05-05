@@ -38,53 +38,51 @@ const AddStudent = () => {
     setError("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // 🔥 VALIDATION FIX
-    if (!form.classroom_id || !form.student_id_card || !form.name) {
-      setError("សូមបំពេញព័ត៌មានទាំងអស់");
-      return;
-    }
+  if (!form.classroom_id || !form.student_id_card || !form.name) {
+    setError("សូមបំពេញព័ត៌មានទាំងអស់");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const payload = {
-        classroom_id: Number(form.classroom_id),
-        student_id_card: form.student_id_card.trim(),
-        name: form.name.trim(),
-        gender: form.gender,
-        phone: form.phone,
-      };
+  try {
+    const payload = {
+      classroom_id: form.classroom_id, // ✅ FIX HERE
+      student_id_card: form.student_id_card.trim(),
+      name: form.name.trim(),
+      gender: form.gender,
+      phone: form.phone,
+    };
 
-      console.log("📦 SEND:", payload);
+    console.log("📦 SEND:", payload);
 
-      const res = await API_URL.post("/student", payload);
+    // eslint-disable-next-line no-unused-vars
+    const res = await API_URL.post("/student", payload);
 
-      alert("បានបន្ថែមសិស្សជោគជ័យ!");
+    alert("បានបន្ថែមសិស្សជោគជ័យ!");
 
-      setForm({
-        classroom_id: "",
-        student_id_card: "",
-        name: "",
-        gender: "Male",
-        phone: "",
-      });
+    setForm({
+      classroom_id: "",
+      student_id_card: "",
+      name: "",
+      gender: "Male",
+      phone: "",
+    });
 
-    } catch (err) {
-      console.log("❌ ERROR:", err.response?.data);
+  } catch (err) {
+    console.log("❌ ERROR:", err.response?.data);
 
-      // 🔥 SHOW REAL LARAVEL ERROR
-      setError(
-        err.response?.data?.message ||
-        JSON.stringify(err.response?.data) ||
-        "មានបញ្ហាកើតឡើង"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    setError(
+      err.response?.data?.message ||
+      "មានបញ្ហាកើតឡើង"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="form-page">
@@ -163,12 +161,12 @@ const AddStudent = () => {
           {/* actions */}
           <div className="form-actions">
 
-            <Link to={`/students`} className="btn-cancel">
+            <Link to={`/students`} className="btn-cancel" style={{textDecoration: "none"}}>
               🔙 ត្រលប់ក្រោយ
             </Link>
 
             <button type="submit" className="btn-save" disabled={loading}>
-              {loading ? "កំពុងរក្សាទុក..." : "💾 រក្សាទុក"}
+              {loading ? "កំពុងរក្សាទុក..." : "រក្សាទុក"}
             </button>
 
           </div>

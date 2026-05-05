@@ -25,31 +25,32 @@ const menuItems = [
     id: "schedule",
     path: "/schedule",
     labelKh: "កាលវិភាគ",
-    icon: <span>📅</span>,
+    // icon: <span>📅</span>,
+
   },
   {
     id: "class",
     path: "/classes",
     labelKh: "ថ្នាក់រៀន",
-    icon: <span>🏫</span>,
+    // icon: <span>🏫</span>,
   },
   {
     id: "students",
     path: "/students",
     labelKh: "សិស្ស",
-    icon: <span>👨‍🎓</span>,
+    // icon: <span>👨‍🎓</span>,
   },
   {
     id: "notifications",
     path: "/notifications",
     labelKh: "សេចក្តីជូនដំណឹង",
-    icon: <span>🔔</span>,
+    // icon: <span>🔔</span>,
   },
   {
     id: "settings",
     path: "/settings",
     labelKh: "ការកំណត់",
-    icon: <span>⚙️</span>,
+    // icon: <span>⚙️</span>,
   },
 ];
 

@@ -61,6 +61,7 @@ const Attendance = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchData();
   }, []);
 
@@ -81,6 +82,7 @@ const Attendance = () => {
       });
       setRecords((prev) => prev.filter((r) => r.id !== deleteId));
       setDeleteId(null);
+    // eslint-disable-next-line no-unused-vars
     } catch (err) {
       alert("មានបញ្ហាក្នុងការលុប!");
     } finally {
@@ -114,7 +116,7 @@ const Attendance = () => {
       <div className="att-header">
         <div>
           <h2 className="att-header__title">
-            📋 វត្តមាន {classroomIdFromUrl && currentClassName && <span>- {currentClassName}</span>}
+            វត្តមាន {classroomIdFromUrl && currentClassName && <span>- {currentClassName}</span>}
           </h2>
           <p className="att-header__sub">
             {classroomIdFromUrl ? "វត្តមានតាមថ្នាក់" : "ត្រួតពិនិត្យវត្តមានសិស្សទាំងអស់"}
@@ -129,7 +131,7 @@ const Attendance = () => {
             <div className="att-stat__label">សរុប</div>
             <div className="att-stat__value">{loading ? "..." : total}</div>
           </div>
-          <div className="att-stat__icon">📊</div>
+          {/* <div className="att-stat__icon">📊</div> */}
         </div>
         <div className="att-stat att-stat--green">
           <div>

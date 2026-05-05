@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import API_URL from "../../Api/api";
-import "../../assets/style/ClassForm.css";
+import "../../assets/style/ClassEdit.css";
 
 const EditClass = ({ id: propId, onClose, onSuccess }) => {
   const { id: paramId } = useParams();
@@ -9,45 +9,73 @@ const EditClass = ({ id: propId, onClose, onSuccess }) => {
 
   const [name, setName] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
+  const [teachers, setTeachers] = useState([]);
+  const [teacherIds, setTeacherIds] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
-  // ── Load data ──
+  // =====================
+  // LOAD DATA (FIXED)
+  // =====================
   useEffect(() => {
-    if (!id) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setFetching(false);
-      return;
-    }
+    const token = localStorage.getItem("token");
 
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
+        // classroom
         const res = await API_URL.get(`/classroom/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        setName(res.data?.data?.name ?? "");
-        setRoomNumber(res.data?.data?.room_number ?? "");
+        const data = res.data?.data;
+
+        setName(data?.name || "");
+        setRoomNumber(data?.room_number || "");
+
+        // ✅ FIX: teacher ids from relation
+        setTeacherIds(data?.teachers?.map(t => t.id) || []);
+
+        // teachers list
+        const resTeacher = await API_URL.get(`/teachers`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setTeachers(resTeacher.data?.data || []);
+
+      // eslint-disable-next-line no-unused-vars
       } catch (err) {
-        setError("មិនអាចទាញព័ត៌មានថ្នាក់!");
-        console.error(err);
+        setError("❌ មិនអាចទាញទិន្នន័យបាន");
       } finally {
         setFetching(false);
       }
     };
 
-    fetchData();
+    if (id) fetchData();
   }, [id]);
 
-  // ── Update ──
+  // =====================
+  // TOGGLE TEACHER
+  // =====================
+  const toggleTeacher = (tid) => {
+    if (teacherIds.includes(tid)) {
+      setTeacherIds(teacherIds.filter(id => id !== tid));
+    } else {
+      setTeacherIds([...teacherIds, tid]);
+    }
+  };
+
+  // =====================
+  // UPDATE (FIXED)
+  // =====================
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     if (!name.trim()) {
-      setError("សូមបញ្ចូលឈ្មោះថ្នាក់!");
+      setError("⚠️ សូមបញ្ចូលឈ្មោះថ្នាក់!");
       return;
     }
 
@@ -57,20 +85,23 @@ const EditClass = ({ id: propId, onClose, onSuccess }) => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await API_URL.post(`/classroom/${id}`, {
-        name,
-        room_number: roomNumber,
-      }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await API_URL.post(
+        `/classroom/${id}`,
+        {
+          name,
+          room_number: roomNumber,
+          teacher_ids: teacherIds, 
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-      if (res.data.status) {
-        onSuccess?.("កែប្រែថ្នាក់បានជោគជ័យ! ✅");
-        onClose?.();
-        navigate("/classes");
-      }
+      onSuccess?.("កែប្រែជោគជ័យ!");
+      navigate("/classes");
+
     } catch (err) {
-      setError(err.response?.data?.message || "មានបញ្ហាកើតឡើង!");
+      setError(err.response?.data?.message || "មានបញ្ហា");
     } finally {
       setLoading(false);
     }
@@ -80,87 +111,84 @@ const EditClass = ({ id: propId, onClose, onSuccess }) => {
     <div className="classform-overlay" onClick={onClose}>
       <div className="classform-box" onClick={(e) => e.stopPropagation()}>
 
-        {/* Header */}
+        {/* HEADER (UNCHANGED UI) */}
         <div className="classform-header">
           <div>
             <p className="classform-header__title">កែប្រែថ្នាក់</p>
             <p className="classform-header__sub">ID: {id}</p>
           </div>
-          <button className="classform-close" onClick={onClose}>✕</button>
+          <Link to="/classes" className="classform-close">✕</Link>
         </div>
 
-        {/* Body */}
+        {/* BODY */}
         <form onSubmit={handleUpdate}>
           <div className="classform-body">
 
-            {error && (
-              <div className="classform-error">⚠️ {error}</div>
-            )}
+            {error && <div className="classform-error">{error}</div>}
 
-            {/* Name Field */}
+            {/* NAME */}
             <div className="classform-field">
-              <label>
-                ឈ្មោះថ្នាក់ 
-                <span className="classform-required">*</span>
-              </label>
+              <label>ឈ្មោះថ្នាក់ *</label>
               {fetching ? (
-                <div className="loading-text">កំពុងទាញទិន្នន័យ...</div>
+                <div className="loading-text">កំពុងផ្ទុក...</div>
               ) : (
                 <input
-                  type="text"
                   className="classform-input"
                   value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    if (error) setError("");
-                  }}
-                  placeholder="ឧ. ថ្នាក់ទី ១០ ក"
-                  required
-                  disabled={loading || fetching}
+                  onChange={(e) => setName(e.target.value)}
                 />
               )}
             </div>
 
-            {/* Room Number Field */}
+            {/* ROOM */}
             <div className="classform-field">
               <label>លេខបន្ទប់</label>
               {fetching ? (
-                <div className="loading-text">កំពុងទាញទិន្នន័យ...</div>
+                <div className="loading-text">កំពុងផ្ទុក...</div>
               ) : (
                 <input
-                  type="text"
                   className="classform-input"
                   value={roomNumber}
-                  onChange={(e) => {
-                    setRoomNumber(e.target.value);
-                    if (error) setError("");
-                  }}
-                  placeholder="ឧ. A-205"
-                  disabled={loading || fetching}
+                  onChange={(e) => setRoomNumber(e.target.value)}
                 />
               )}
+            </div>
+
+            {/* TEACHERS (UNCHANGED UI) */}
+            <div className="classform-field">
+              <label>ជ្រើសគ្រូ</label>
+
+              <div className="teacher-grid">
+                {teachers.map((t) => (
+                  <div
+                    key={t.id}
+                    className={`teacher-card ${teacherIds.includes(t.id) ? "active" : ""}`}
+                    onClick={() => toggleTeacher(t.id)}
+                  >
+                    <div className="avatar">👨‍🏫</div>
+                    <span>{t.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
           </div>
 
-          {/* Footer */}
+          {/* FOOTER (UNCHANGED UI) */}
           <div className="classform-footer">
-            <button
-              type="button"
-              className="classform-btn-cancel"
-              onClick={onClose}
-              disabled={loading}
-            >
-              បោះបង់
-            </button>
+
+            <Link to="/classes" className="classform-btn-cancel">
+               ← ត្រឡប់ក្រោយ
+            </Link>
 
             <button
               type="submit"
               className="classform-btn-submit classform-btn-submit--edit"
-              disabled={loading || fetching}
+              disabled={loading}
             >
-              {loading ? "កំពុងរក្សាទុក..." : "💾 រក្សាទុកការផ្លាស់ប្តូរ"}
+              {loading ? "កំពុងរក្សាទុក..." : "Save"}
             </button>
+
           </div>
         </form>
 
