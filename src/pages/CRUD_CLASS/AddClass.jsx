@@ -26,7 +26,7 @@ const AddClass = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await API_URL.post("/classroom9", {
+    await API_URL.post("/classroom", {
       name,
       room_number: roomNumber,
       teacher_ids: teacherIds,

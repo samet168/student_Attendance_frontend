@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSidebar } from "../context/SidebarProvider";
+import api from "../Api/api";
 import "../assets/style/Sidebar.css";
 
 const menuItems = [
@@ -20,44 +21,40 @@ const menuItems = [
       { id: "subjects", path: "/subjects", labelKh: "មុខវិជ្ជា" },
     ],
   },
-
-  {
-    id: "schedule",
-    path: "/schedule",
-    labelKh: "កាលវិភាគ",
-    // icon: <span>📅</span>,
-
-  },
-  {
-    id: "class",
-    path: "/classes",
-    labelKh: "ថ្នាក់រៀន",
-    // icon: <span>🏫</span>,
-  },
-  {
-    id: "students",
-    path: "/students",
-    labelKh: "សិស្ស",
-    // icon: <span>👨‍🎓</span>,
-  },
-  {
-    id: "notifications",
-    path: "/notifications",
-    labelKh: "សេចក្តីជូនដំណឹង",
-    // icon: <span>🔔</span>,
-  },
-  {
-    id: "settings",
-    path: "/settings",
-    labelKh: "ការកំណត់",
-    // icon: <span>⚙️</span>,
-  },
+  // { id: "schedule", path: "/schedule", labelKh: "កាលវិភាគ" },
+  { id: "class", path: "/classes", labelKh: "ថ្នាក់រៀន" },
+  { id: "students", path: "/students", labelKh: "សិស្ស" },
+  // { id: "notifications", path: "/notifications", labelKh: "សេចក្តីជូនដំណឹង" },
+  { id: "settings", path: "/settings", labelKh: "ការកំណត់" },
 ];
 
 const Sidebar = () => {
   const { isOpen, close } = useSidebar();
+
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [openMenu, setOpenMenu] = useState(null);
+
+  // Fetch user profile
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get("/profile", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setUser(res.data);
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -75,14 +72,10 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Overlay */}
-      {isMobile && isOpen && (
-        <div className="sidebar__overlay" onClick={close} />
-      )}
+      {isMobile && isOpen && <div className="sidebar__overlay" onClick={close} />}
 
       <aside className={sidebarClasses}>
         <div>
-
           {/* LOGO */}
           <div className="sidebar__logo">
             <div className="sidebar__logo-icon">A</div>
@@ -96,15 +89,11 @@ const Sidebar = () => {
           <nav className="sidebar__nav">
             {menuItems.map((item) => (
               <div key={item.id}>
-
-                {/* WITH DROPDOWN */}
                 {item.children ? (
                   <>
                     <div
                       className="sidebar__nav-link"
-                      onClick={() =>
-                        setOpenMenu(openMenu === item.id ? null : item.id)
-                      }
+                      onClick={() => setOpenMenu(openMenu === item.id ? null : item.id)}
                     >
                       <span className="sidebar__nav-icon">{item.icon}</span>
                       <span>{item.labelKh}</span>
@@ -122,10 +111,7 @@ const Sidebar = () => {
                             end={sub.path === "/"}
                             onClick={close}
                             className={({ isActive }) =>
-                              [
-                                "sidebar__submenu-link",
-                                isActive ? "sidebar__nav-link--active" : "",
-                              ]
+                              ["sidebar__submenu-link", isActive ? "sidebar__nav-link--active" : ""]
                                 .filter(Boolean)
                                 .join(" ")
                             }
@@ -137,15 +123,11 @@ const Sidebar = () => {
                     )}
                   </>
                 ) : (
-                  /* NORMAL LINK */
                   <NavLink
                     to={item.path}
                     onClick={close}
                     className={({ isActive }) =>
-                      [
-                        "sidebar__nav-link",
-                        isActive ? "sidebar__nav-link--active" : "",
-                      ]
+                      ["sidebar__nav-link", isActive ? "sidebar__nav-link--active" : ""]
                         .filter(Boolean)
                         .join(" ")
                     }
@@ -159,12 +141,13 @@ const Sidebar = () => {
           </nav>
         </div>
 
-        {/* USER */}
+        {/* USER SECTION - បង្ហាញតែឈ្មោះ */}
         <div className="sidebar__user">
           <div className="sidebar__user-avatar">👤</div>
           <div>
-            <div className="sidebar__user-name">មឿន សាម៉េត</div>
-            <div className="sidebar__user-id">ID: STU56789</div>
+            <div className="sidebar__user-name">
+              {loading ? "កំពុងផ្ទុក..." : user?.name || "អ្នកប្រើប្រាស់"}
+            </div>
           </div>
         </div>
       </aside>

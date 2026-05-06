@@ -27,8 +27,11 @@ const ViewAttendance = () => {
   const [records, setRecords] = useState([]);
   const [countMap, setCountMap] = useState({});
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [search, setSearch] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [date, setDate] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [status, setStatus] = useState("");
   const [meta, setMeta] = useState(null);
   const [page, setPage] = useState(1);

@@ -1,0 +1,512 @@
+/* ─── Settings Page ────────────────────────────────────────────── */
+
+.s-root {
+  min-height: 100vh;
+  background: #f7f7f6;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  position: relative;
+}
+
+.s-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* Header */
+.s-header {
+  margin-bottom: 2rem;
+}
+
+.s-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.4px;
+  margin-bottom: 4px;
+}
+
+.s-subtitle {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Card */
+.s-card {
+  background: #fff;
+  border: 1px solid #e8e8e6;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+/* Avatar Section */
+.s-avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 1.5rem;
+}
+
+.s-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.s-avatar-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.s-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.s-email {
+  font-size: 13px;
+  color: #888;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.s-role-badge {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: #f0f0ee;
+  color: #555;
+}
+
+.s-divider {
+  height: 1px;
+  background: #f0f0ee;
+}
+
+/* Section */
+.s-section {
+  padding: 1.25rem 1.5rem;
+}
+
+.s-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.s-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+/* Fields */
+.s-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.s-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.s-field--full {
+  grid-column: 1 / -1;
+}
+
+.s-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #bbb;
+}
+
+.s-field-value {
+  font-size: 14px;
+  color: #222;
+  padding: 9px 12px;
+  background: #fafaf9;
+  border: 1px solid #ebebea;
+  border-radius: 8px;
+  line-height: 1.4;
+}
+
+.s-mono {
+  font-family: 'DM Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  color: #555;
+}
+
+/* Inputs */
+.s-input {
+  font-family: inherit;
+  font-size: 14px;
+  color: #111;
+  padding: 9px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.s-input:focus {
+  border-color: #111;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+
+.s-input-wrapper {
+  position: relative;
+}
+
+.s-input--pwd {
+  padding-right: 40px;
+}
+
+.s-eye-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+}
+
+.s-eye-btn:hover {
+  color: #555;
+}
+
+/* Buttons */
+.s-btn-ghost {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  background: none;
+  border: 1px solid #e0e0de;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.s-btn-ghost:hover {
+  background: #f5f5f4;
+  color: #111;
+  border-color: #ccc;
+}
+
+.s-btn-primary {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: #111;
+  border: 1px solid #111;
+  border-radius: 8px;
+  padding: 7px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.12s, transform 0.1s;
+}
+
+.s-btn-primary:hover {
+  opacity: 0.85;
+}
+
+.s-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.s-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.s-action-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* Password section */
+.s-pwd-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+}
+
+.s-pwd-toggle:hover {
+  background: #fafaf9;
+}
+
+.s-pwd-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #555;
+}
+
+.s-pwd-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+}
+
+.s-pwd-hint {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.s-chevron {
+  color: #ccc;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.s-chevron--open {
+  transform: rotate(180deg);
+}
+
+.s-pwd-body {
+  animation: fadeDown 0.18s ease;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.s-pwd-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1.25rem 1.5rem 0;
+}
+
+.s-pwd-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 1rem 1.5rem 1.25rem;
+}
+
+/* Toast */
+.s-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  z-index: 9999;
+  white-space: nowrap;
+  animation: toastIn 0.22s ease;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.s-toast--success {
+  background: #111;
+  color: #fff;
+}
+
+.s-toast--error {
+  background: #fff;
+  color: #c0392b;
+  border: 1px solid #f5c6c6;
+}
+
+.s-toast-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Loading / Error */
+.s-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.s-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 14px;
+  color: #c0392b;
+}
+
+/* Spinner */
+.s-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+.s-spinner--sm {
+  width: 13px;
+  height: 13px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .s-fields {
+    grid-template-columns: 1fr;
+  }
+  .s-field--full {
+    grid-column: 1;
+  }
+  .s-page {
+    padding: 2rem 1rem 3rem;
+  }
+}
+/* Logout Card */
+.s-logout-card {
+  border-color: #fee2e2;
+}
+
+.s-logout-desc {
+  color: #64748b;
+  margin: 12px 0 20px 0;
+  font-size: 0.95rem;
+}
+
+.s-btn-logout {
+  width: 100%;
+  padding: 14px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.s-btn-logout:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+/* Settings.css - Khmer Font */
+:root {
+  --font-khmer: "Nokora", "Battambang", "Khmer OS Siemreap", "Bayon", sans-serif;
+  --font-sans: "Inter", "Nokora", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  font-family: var(--font-sans);
+}
+
+/* ធ្វើឱ្យអក្សរខ្មែរស្អាត និងងាយស្រួលអាន */
+h1, h2, h3, .s-title, .s-name, .s-pwd-title {
+  font-family: var(--font-khmer);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+p, label, button, .s-subtitle, .s-field-label, .s-field-value, 
+.s-logout-desc, .s-pwd-hint {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* កែទំហំអក្សរខ្មែរ ឱ្យស្អាត */
+.s-name {
+  font-size: 1.65rem;
+  font-weight: 700;
+}
+
+.s-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+}
+
+.s-field-value, .s-field-label {
+  font-size: 1.02rem;
+}
+
+/* ធ្វើឱ្យប៊ូតុង និង Text ស្អាត */
+button, .s-btn-primary, .s-btn-ghost, .s-btn-logout {
+  font-family: var(--font-khmer);
+  font-weight: 500;
+}
+
+/* កែ spacing សម្រាប់អក្សរខ្មែរ */
+.s-avatar-info h2, .s-name {
+  margin-bottom: 4px;
+}

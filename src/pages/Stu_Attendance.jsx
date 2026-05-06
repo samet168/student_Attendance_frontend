@@ -54,7 +54,7 @@ const Stu_Attendance = () => {
   const loadStudents = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/student?classroom_id=${classroomId}`, {
+      const res = await fetch(`${API}/students?classroom_id=${classroomId}`, {
         headers: getHeaders(),
       });
       const data = await res.json();

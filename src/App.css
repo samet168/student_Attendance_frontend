@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --font-khmer: "Nokora", "Battambang", "Khmer OS Siemreap", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* 🌐 GLOBAL */
+html, body {
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  background: #f4f7fb;
+  color: #0f172a;
+  font-size: 14px; /* 🔥 តូចជាងមុន */
+  line-height: 1.5;
+}
+
+/* 🧠 Khmer headings */
+h1, h2, h3 {
+  font-family: var(--font-khmer);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* 📄 text */
+p, span, label, input, button, select, textarea {
+  font-family: var(--font-sans);
+  font-size: 13.5px; /* 🔥 តូចជាង */
+}
+
+/* 🔘 buttons */
+button {
+  font-family: var(--font-khmer);
+  font-weight: 500;
+  font-size: 13.5px;
+}
+
+/* 📌 reduce spacing for clean UI */
+h1, h2, h3 {
+  margin-bottom: 6px;
+}
+
+p {
+  margin: 4px 0;
+}
