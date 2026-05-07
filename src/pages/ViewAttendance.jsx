@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import "./Attendance.css";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://student-attendance-back.onrender.com/api";
 
 const STATUSES = [
   { key: "", label: "ទាំងអស់" },

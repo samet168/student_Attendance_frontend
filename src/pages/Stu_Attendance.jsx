@@ -7,7 +7,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import API_URL from "../Api/api";
 import "../assets/style/Attendance.css";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://student-attendance-back.onrender.com/api";
 
 const STATUSES = [
   { key: "Present",    label: "វត្តមាន",  color: "present" },

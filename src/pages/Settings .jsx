@@ -52,11 +52,22 @@ const Settings = () => {
     }
   };
 
-  const handleLogout = () => {
+const handleLogout = () => {
     if (window.confirm("តើអ្នកពិតជាចង់ចាកចេញពីគណនីមែនទេ?")) {
+      
       localStorage.removeItem("token");
+      localStorage.removeItem("user"); 
+
+      
+      window.dispatchEvent(new Event("authChange"));
+
+     
       showToast("បានចាកចេញដោយជោគជ័យ", "success");
-      setTimeout(() => navigate("/login"), 800);
+
+      
+      setTimeout(() => {
+        navigate("/login");
+      }, 800);
     }
   };
 

@@ -5,7 +5,6 @@ import "../assets/style/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,14 +16,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await API_URL.post("/login", {
-        email,
-        password,
-      });
-
-      console.log("LOGIN RESPONSE:", res.data);
-
-      // 🔥 YOUR BACKEND RETURNS: token
+      const res = await API_URL.post("/login", { email, password });
       const token = res.data.token;
 
       if (!token) {
@@ -32,18 +24,17 @@ const Login = () => {
         return;
       }
 
-      // ✅ save token + user
+      // ✅ ១. រក្សាទុក Token និង User ទិន្នន័យ
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // redirect
+      // ✅ ២. បាញ់ Event "authChange" ដើម្បីឱ្យ Navbar ដឹងខ្លួនរត់ទៅ Fetch Profile
+      window.dispatchEvent(new Event("authChange"));
+
+      // ✅ ៣. រុញទៅទំព័រ Dashboard
       navigate("/");
     } catch (err) {
-      console.error(err.response?.data || err);
-
-      setError(
-        err.response?.data?.message || "Login មិនជោគជ័យ"
-      );
+      setError(err.response?.data?.message || "Login មិនជោគជ័យ");
     } finally {
       setLoading(false);
     }
@@ -52,33 +43,17 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Login</h2>
-
-        {error && <div className="login-error">{error}</div>}
-
+        <h2>ចូលប្រើប្រាស់</h2>
+        {error && <div className="login-error" style={{color: 'red', marginBottom: '10px'}}>{error}</div>}
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="បញ្ចូល Email"
-              required
-            />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="បញ្ចូល Email" required />
           </div>
-
           <div className="input-group">
             <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="បញ្ចូល Password"
-              required
-            />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="បញ្ចូល Password" required />
           </div>
-
           <button type="submit" disabled={loading}>
             {loading ? "កំពុងចូល..." : "ចូលប្រើ"}
           </button>
