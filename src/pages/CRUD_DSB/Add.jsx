@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API_URL from "../../Api/api";
-import "../../assets/style/UserForm.css";
+import "./UserForm.css";
 
 const Add = () => {
   const navigate = useNavigate();

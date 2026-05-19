@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import API_URL from "../../Api/api";
-import "../../assets/style/AttendanceForm.css";
+import "./AttendanceForm.css";
 
 const STATUSES = [
   { value: "present", label: "✅ មានវត្តមាន" },

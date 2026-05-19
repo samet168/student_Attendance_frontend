@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import API_URL from "../../Api/api";
-import "../../assets/style/UserForm.css";
+import "./UserForm.css";
 
 
 const Edit = () => {
