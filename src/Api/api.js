@@ -25,8 +25,7 @@ API_URL.interceptors.response.use(
       localStorage.removeItem("token");
       localStorage.removeItem("user");
 
-      // ❌ កុំប្រើ window.location.href
-      // window.location.href = "/login";
+
     }
 
     return Promise.reject(error);

@@ -6,6 +6,7 @@ import "../assets/style/Navbar.css";
 
 const Navbar = () => {
   const { toggle } = useSidebar();
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ const Navbar = () => {
 
   useEffect(() => {
     // ហៅដំបូងពេល Component លោតឡើង
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchUser();
 
     // ✅ ស្តាប់ការផ្លាស់ប្តូរពី Login ឬ Logout
