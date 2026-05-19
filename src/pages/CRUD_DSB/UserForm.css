@@ -1,19 +1,29 @@
 /* ===== UserForm.css ===== */
 
-/* ── Page ───────────────────────────────────────────── */
+/* ── Page (កែសម្រួលដើម្បីឱ្យ Form នៅចំកណ្តាល) ─────────────────── */
 .user-form-page {
   padding: 28px 24px;
   font-family: "Noto Sans Khmer", "Khmer OS Battambang", sans-serif;
   background-color: #f4f7fb;
   min-height: calc(100vh - 64px);
+  box-sizing: border-box;
+
+  /* 💡 បន្ថែម Flexbox ដើម្បីទាញ Content ទាំងអស់មកចំកណ្តាល */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* កណ្តាល លើ-ក្រោម (Vertical) */
+  align-items: center;     /* កណ្តាល ឆ្វេង-ស្តាំ (Horizontal) */
 }
 
-/* ── Top bar ────────────────────────────────────────── */
+/* ── Top bar (កែសម្រួលទំហំឱ្យត្រូវជាមួយ Card) ─────────────────── */
 .user-form-page__topbar {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 24px;
+  width: 100%;             /* ឱ្យលាតស្មើទំហំ Card */
+  max-width: 640px;        /* កំណត់ទំហំធំបំផុតត្រឹម 640px ស្មើ Card */
+  box-sizing: border-box;
 }
 
 .user-form-page__back {
@@ -44,13 +54,14 @@
   margin: 0;
 }
 
-/* ── Card ───────────────────────────────────────────── */
+/* ── Card (កែសម្រួលឱ្យលាតពេញកម្រិត max-width) ─────────────────── */
 .user-form-card {
   background-color: #ffffff;
   border-radius: 18px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   overflow: hidden;
-  max-width: 640px;
+  width: 100%;             /* ឱ្យវាលាតពេញទំហំដែលមាន */
+  max-width: 640px;        /* កម្រិតមិនឱ្យរីកធំជាង 640px ឡើយ */
 }
 
 .user-form-card__header {

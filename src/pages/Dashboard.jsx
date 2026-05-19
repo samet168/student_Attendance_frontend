@@ -39,7 +39,7 @@ const Dashboard = () => {
       }
     };
 
-    fetchUsers();   // ✅ call នៅខាងក្នុង useEffect
+    fetchUsers();  
   }, []);
 
   // ── Delete user ───────────────────────────────────────
@@ -155,7 +155,7 @@ const Dashboard = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
             <Link to="/users/create" className="dashboard__add-btn">
-              + បន្ថែមអ្នកប្រើប្រាស់
+              បន្ថែមអ្នកប្រើប្រាស់
             </Link>
           </div>
         </div>

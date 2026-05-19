@@ -55,30 +55,65 @@ const EditStudent = () => {
     setError("");
   };
 
-  const handleSubmit = async (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!form.classroom_id || !form.student_id_card || !form.name || !form.phone) {
+  //     setError("សូមបំពេញព័ត៌មានទាំងអស់");
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   try {
+  //     await API_URL.post(`/student/${id}`, {
+  //       ...form,
+  //       classroom_id: Number(form.classroom_id),
+  //     });
+
+  //     alert("កែប្រែជោគជ័យ!");
+  //     navigate("/students");
+  //   } catch (err) {
+  //     alert(err.response?.data?.message || "មានបញ្ហាកើតឡើង");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.classroom_id || !form.student_id_card || !form.name || !form.phone) {
-      setError("សូមបំពេញព័ត៌មានទាំងអស់");
-      return;
+    if (!form.classroom_id || !form.student_id_card || !form.name || !form.gender) {
+        setError("សូមបំពេញព័ត៌មានដែលចាំបាច់ទាំងអស់");
+        return;
     }
 
     setLoading(true);
+    setError("");
 
     try {
-      await API_URL.post(`/student/${id}`, {
-        ...form,
-        classroom_id: Number(form.classroom_id),
-      });
+        await API_URL.post(`/student/${id}`, {
+            classroom_id: form.classroom_id,                    // Keep as string
+            student_id_card: String(form.student_id_card).trim(),
+            name: String(form.name).trim(),
+            gender: form.gender,
+            phone: form.phone ? String(form.phone).trim() : null,
+        });
 
-      alert("កែប្រែជោគជ័យ!");
-      navigate("/students");
+        alert("កែប្រែជោគជ័យ!");
+        navigate("/students");
     } catch (err) {
-      alert(err.response?.data?.message || "មានបញ្ហាកើតឡើង");
+        if (err.response?.data?.errors) {
+            const errorMessages = Object.values(err.response.data.errors).flat().join("\n");
+            setError(errorMessages);
+        } else {
+            setError(err.response?.data?.message || "មានបញ្ហាកើតឡើង");
+        }
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
   return (
     <div className="form-page">
